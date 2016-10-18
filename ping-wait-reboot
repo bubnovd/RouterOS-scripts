@@ -1,0 +1,18 @@
+:log info "..........Start ISP test.........."
+:local PingTarget 8.8.8.8
+:local PingResult
+
+if ([system resource get uptime] > 00:01:00) do={
+	:set PingResult [ping $PingTarget count=50]
+	:if ($PingResult < 30) do={
+			:log error "ISP Test is uncomplete with PingResult=$PingResult REBOOT NOW"
+			/system reboot
+	} else={:log info "..........ISP Test is complete with PingResult=$PingResult.........."}
+} else={
+	delay 60
+	:set PingResult [ping $PingTarget count=50]
+	:if ($PingResult < 30) do={
+			:log error "ISP Test is uncomplete with PingResult=$PingResult REBOOT NOW"
+			/system reboot
+	}
+}	
