@@ -1,0 +1,18 @@
+:global isup
+:local curier {"C8:3A:35:CE:05:44"; "C8:3A:35:CE:05:45"; "00:0A:CA:3D:EC:5A"; "00:5B:07:77:14:04"}
+:local datetime ([/system clock get date]."-".[/system clock get time])
+:local identity [/system identity get name]
+foreach mac in $curier do={
+	if ([:len [/interface wireless registration-table find mac-address=$mac]] > 0) do={
+		if ($isup != "$mac") do={
+                                                /log warning message="device is registered"
+                                                /tool fetch keep-result=no url="http://192.168.11.165/work/hs/SecureConnectionToWiFI/$identity/$mac/9876543210/$datetime"
+			:set $isup $mac
+		}
+	} else={
+		if ($isup="$mac") do={
+			:set $isup ""
+			/log warning message="device is unregistered"
+		}
+	}
+}
