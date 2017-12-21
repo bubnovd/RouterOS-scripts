@@ -1,0 +1,21 @@
+:local txAvg 0
+:local rxAvg 0
+:local ipbandswtestserver your.btest.server.ip
+:local btuser btest
+:local btpwd btest
+:local ts [/system clock get time]
+:local ContentsFile [/file get isp-quality.txt contents]
+:local ds [/system clock get date]
+
+:set ts ([:pick $ts 0 2].[:pick $ts 3 5].[:pick $ts 6 8])
+:set ds ([:pick $ds 7 11].[:pick $ds 0 3].[:pick $ds 4 6])
+
+tool bandwidth-test protocol=tcp direction=transmit address=$ipbandswtestserver duration=5s do={
+:set txAvg ($"tx-total-average" / 1048576 );
+}
+
+tool bandwidth-test protocol=tcp direction=receive address=$ipbandswtestserver duration=5s do={
+:set rxAvg ($"rx-total-average" / 1048576 );
+}
+
+/file set isp-quality.txt contents="$ContentsFile\n$ds-$ts tx: $txAvg Mbps - rx: $rxAvg Mbps"
