@@ -1,0 +1,3 @@
+#get IP and hostname by MAC address
+#
+{:local arr {"00:00:1B:00:AB:CD" ; "00:00:1B:00:AB:EF"}; foreach v in $arr do={if ([len [/ip arp find where mac-address=$v]] >0) do={:put [/ip arp get [find where mac-address=$v] address]}}}
