@@ -1,0 +1,2 @@
+ foreach i in=[interface ethernet switch unicast-fdb find ] do={put [interface ethernet switch unicast-fdb get $i port ]; put [interface ethernet switch unicas
+t-fdb get $i mac-address ]}
