@@ -12,9 +12,10 @@
 :local Eaccount "backup@mikrotik-ninja.ru"; #YOUR MAILBOX FOR SEND EMAIL
 :local pass "bubnovd.net"; #PASSWORD FOR MAILBOX
 :local mailto "backup-inbox@mikrotik-ninja.ru"; #YOUR MAILBOX FOR RECEIVE BACKUPS
+:local pass "bubnovd.net"; #PASSWORD FOR BACKUP ENCRYPTION
 :local backupfile ("$sysname-backup-" . [:pick [/system clock get date] 7 11] . [:pick [/system clock get date] 0 3] . [:pick [/system clock get date] 4 6] . ".backup");
 :log info "Creating new Full Backup file...";
-/system backup save name=$backupfile;
+/system backup save name=$backupfile encryption=aes-sha256 password=$pass;
 :delay 2;
 :log info "Sending Full Backup file via E-mail...";
 /tool e-mail send from="<$Eaccount>" to=$mailto server=$smtpserv port=587 user=$Eaccount password=$pass start-tls=yes file=$backupfile subject=("$sysname Full Backup (" . [/system clock get date] . ")") body=("$sysname full Backup file see in attachment.\nRouterOS version: \$sysver\nTime and Date stamp: " . [/system clock get time] . " " . [/system clock get date]);
