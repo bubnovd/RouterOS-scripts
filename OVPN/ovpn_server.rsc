@@ -22,3 +22,6 @@
 /ppp secret add name=client1 password=P@ssword1 service=ovpn profile=OVPN_server
 #enable OVPN server
 /interface ovpn-server server set auth=sha1 cipher=blowfish128 default-profile=OVPN_server mode=ip netmask=24 require-client-certificate=yes certificate=srv-OVPN enabled=yes
+
+#add firewall rule for OVPN connections
+/ip firewall filter add action=accept chain=input comment=OVPN dst-port=1194 in-interface-list=WAN protocol=tcp
