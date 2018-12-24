@@ -9,8 +9,8 @@
 #template for clients
 /certificate add name=template-CL country="" state="" locality="" organization="" unit="" common-name="client-ovpn-template" key-size=4096 days-valid=365 key-usage=tls-client
 #certificate for client
-/certificate add name=client1 copy-from="template-CL" common-name="client1-ovpn"
-/certificate sign template-CL ca="CA" name="client1-ovpn"
+/certificate add name=client1 copy-from="client1" common-name="client1-ovpn"
+/certificate sign client1 ca="CA" name="client1-ovpn"
 
 #pool for clients
 /ip pool add name=pool-ovpn ranges=10.129.0.11-10.129.0.254
