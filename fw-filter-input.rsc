@@ -47,10 +47,11 @@ add action=accept chain=input comment=web dst-port=80 protocol=tcp src-address-l
 add action=accept chain=input comment=ntp dst-port=123 protocol=udp src-address-list=NET
 add action=accept chain=input comment=traceroute dst-port=33343 protocol=udp src-address-list=NET
 add action=accept chain=input comment=winbox dst-port=8291 protocol=tcp
-add action=accept chain=input comment=OLD port=1701,500,4500 protocol=udp
 add action=accept chain=input comment="IPSEC ESP" protocol=ipsec-esp
 add action=accept chain=input comment=ipsec dst-port=500,4500 protocol=udp
 add action=accept chain=input comment=l2tp dst-port=1701 in-interface-list=WAN protocol=udp
+add action=accept chain=input comment=pptp dst-port=1723 in-interface-list=WAN protocol=tcp
+add action=accept chain=input comment=gre in-interface-list=WAN protocol=gre
 add action=accept chain=input comment="Winbox MAC" dst-port=20561 in-interface-list=!WAN protocol=udp
 add action=accept chain=input comment=snmp dst-port=161 protocol=udp src-address-list=snmp_allow
 add action=accept chain=input dst-port=161 protocol=tcp src-address-list=snmp_allow
