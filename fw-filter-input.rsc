@@ -52,8 +52,8 @@ add action=accept chain=input comment="IPSEC ESP" protocol=ipsec-esp
 add action=accept chain=input comment=ipsec dst-port=500,4500 protocol=udp
 add action=accept chain=input comment=l2tp dst-port=1701 in-interface-list=WAN protocol=udp
 add action=accept chain=input comment="Winbox MAC" dst-port=20561 in-interface-list=!WAN protocol=udp
-add action=accept chain=input comment=snmp dst-port=161 protocol=udp src-address-list=DataCenter
-add action=accept chain=input dst-port=161 protocol=tcp src-address-list=DataCenter
+add action=accept chain=input comment=snmp dst-port=161 protocol=udp src-address-list=snmp_allow
+add action=accept chain=input dst-port=161 protocol=tcp src-address-list=snmp_allow
 add action=accept chain=input comment=dhcp dst-port=67 in-interface-list=!WAN protocol=udp
 add action=accept chain=input dst-port=68 in-interface-list=!WAN protocol=udp
 add action=accept chain=input comment=dns dst-port=53 protocol=udp src-address-list=LAN
