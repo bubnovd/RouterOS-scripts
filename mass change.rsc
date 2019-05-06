@@ -1,0 +1,1 @@
+foreach r in=[/ip firewall nat find where action=dst-nat and  dst-address="your.old.ip.address"] do={/ip firewall nat set $r dst-address=your.new.ip.address}
